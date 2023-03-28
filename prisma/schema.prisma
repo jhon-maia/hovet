@@ -87,6 +87,7 @@ model Produto{
   nome String
   quantidade Int
   unidade Int
+  desc String
   entradas Entrada[]
   saidas Saida[]
 
