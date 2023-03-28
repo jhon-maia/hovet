@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Funcionario{
+  id String @id @default(uuid())
+  nome String 
+  email String 
+  cpf String
+  senha String 
+
+   movimentacoes historicoMovimentacao[]
+
+  @@map("funcionario")
+}
+
+model Categoria{
+   id String @id @default(uuid())
+   nome String
+   departamento Departamento[]
+
+   @@map("categoria")
+}
+
+model Lote{
+  id String  @id @default(uuid())
+  numero String 
+  fabricante String 
+  dataValidade DateTime
+  dataFabricacao DateTime
+
+  produtos Produto[]
+
+  @@map("lote")
+
+}
+
+model Fornecedor{
+
+  id String @id @default(uuid())
+  nome String
+  telefone String 
+  email String 
+  cnpj String 
+
+  produtos Produto[]
+
+  @@map("fornecedor")
+}
+
+model Solicitante {
+
+  id String @id @default(uuid())
+  nome String
+  profissional String
+  telefone String 
+  email String 
+  cpf String 
+
+  saidas Saida[]
+
+
+
+  @@map("solicitante")
+}
+
+model Departamento{
+  id String @id @default(uuid())
+  nome String
+  categoria Categoria @relation(fields:[categoriaId],references:[id])
+  categoriaId String
+
+  produtos Produto[]
+}
+
+
+model Produto{
+  id String @id @default(uuid())
+  nome String
+  quantidade Int
+  unidade Int
+  entradas Entrada[]
+  saidas Saida[]
+
+  departamentoId String
+  fornecedorId String
+  loteId String 
+
+
+  departamento Departamento @relation(fields: [departamentoId],references: [id])
+  fornecedor Fornecedor @relation(fields: [fornecedorId],references: [id])
+  lote  Lote @relation(fields: [loteId],references: [id])
+
+  @@map("produto")
+}
+
+model Entrada{
+
+ id String @id @default(uuid())
+ tipo String
+ data DateTime
+ quantidade Int
+ 
+  movimentacoes historicoMovimentacao[]
+
+ produtoId String
+
+produto Produto @relation(fields: [produtoId],references: [id])
+
+@@map("entrada")
+}
+
+model Saida{
+
+ id String @id @default(uuid())
+ tipo String
+ data DateTime
+ quantidade Int
+ setor String
+
+ movimentacoes historicoMovimentacao[]
+
+ produtoId String
+ solicitanteId String
+
+produto Produto @relation(fields: [produtoId],references: [id])
+solicitante Solicitante @relation(fields: [solicitanteId],references: [id])
+
+ @@map("saida")
+}
+
+
+model historicoMovimentacao{
+  id String @id @default(uuid())
+  saldoInicial Float
+  saldoFinal Float
+
+  funcionarioId String
+  saidaId String
+  entradaId String
+
+  funcionario Funcionario @relation(fields: [funcionarioId],references: [id])
+  saida  Saida @relation(fields: [saidaId],references: [id])
+  entrada Entrada @relation(fields: [entradaId],references: [id])
+ 
+ @@map("historico_de_movimentacao")
+}
