@@ -5,6 +5,7 @@ import { ILoteRepository, LoteCreate } from './ILoteRepository';
 export class LotePrismaRepository implements ILoteRepository {
 
     async save({numero,fabricante,dataFabricacaco,dataValidade}: LoteCreate): Promise<LoteCreate | undefined> {
+        
 
         const lote= await prismaClient.lote.create({data:{
             numero,
@@ -18,8 +19,8 @@ export class LotePrismaRepository implements ILoteRepository {
             id:lote.id,
             numero:lote.numero,
             fabricante:lote.fabricante,
-            dataValidade:lote.dataValidade,
-            dataFabricacaco:lote.dataFabricacaco
+            dataValidade:new Date(lote.dataValidade),
+            dataFabricacaco:new Date(lote.dataFabricacaco)
 
         } 
 

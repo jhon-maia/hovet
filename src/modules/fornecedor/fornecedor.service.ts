@@ -6,9 +6,9 @@ export class FornecedorCreateService{
     async execute(data:FornecedorCreate){
         const lote= await this.fornecedorRepository.findById(data.id)
         
-        if(data.id === lote?.id){
+        if(data.email === lote?.email){
 
-            throw new Error("lote já existente")
+            throw new Error("fornecedor já existente")
         }
 
         const loteCreated= await this.fornecedorRepository.save(data)

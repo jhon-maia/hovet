@@ -35,7 +35,7 @@ model Lote{
   numero String 
   fabricante String 
   dataValidade DateTime
-  dataFabricacao DateTime
+  dataFabricacaco DateTime
 
   produtos Produto[]
 
@@ -87,7 +87,6 @@ model Produto{
   nome String
   quantidade Int
   unidade Int
-  desc String
   entradas Entrada[]
   saidas Saida[]
 
