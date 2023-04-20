@@ -16,4 +16,26 @@ export class DepartamentoCreateService{
 
 
    }
+   async executeDelete(id:string){
+    const produtoDeletado=await this.departamentoRepository.delete(id)
+    return produtoDeletado
+
+   }
+
+   async executeFindAll(){
+     const todosdepartamento=await this.departamentoRepository.findAll()
+     return todosdepartamento 
+   }
+
+   async executeUpdate(id:string, data:DepartamentoCreate){
+    const departamento= await this.departamentoRepository.findById(data.id)
+
+    if(data.id===departamento?.id){
+        const produtoUpdate=await this.departamentoRepository.update(id,data)
+        return produtoUpdate
+
+    }
+
+
+   }
 }

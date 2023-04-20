@@ -16,4 +16,25 @@ export class LoteController{
         console.log(result)
         return response.json(result)
     }
+
+    async delete(request:Request,response:Response){
+        const LoteRepository= new LotePrismaRepository();
+        const LoteService= new LoteCreateService(LoteRepository);
+
+        const result=LoteService.executeDelete(request.params.id)
+        return response.json(result)
+
+    }
+
+    async update(request:Request,response:Response){
+        const{body}=request;
+        const LoteRepository= new LotePrismaRepository();
+        const LoteService= new LoteCreateService(LoteRepository);
+
+        const result= await LoteService.executeUpdate(request.params.id,body);
+        console.log(result);
+
+        return response.json(result);
+
+    }
 }

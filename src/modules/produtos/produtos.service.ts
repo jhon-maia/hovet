@@ -16,4 +16,27 @@ export class ProdutosCreateService{
 
 
    }
+
+   async executeDelete(id:string){
+    const produtoDeletado=await this.produtosRepository.delete(id)
+    return produtoDeletado
+
+   }
+
+   async executeFindAll(){
+     const todosProdutos=await this.produtosRepository.findAll()
+     return todosProdutos 
+   }
+
+   async executeUpdate(id:string, data:ProdutosCreate){
+    const produtos= await this.produtosRepository.findById(data.id)
+
+    if(data.id===produtos?.id){
+        const produtoUpdate=await this.produtosRepository.update(id,data)
+        return produtoUpdate
+
+    }
+
+
+   }
 }

@@ -19,4 +19,7 @@ export interface IProdutosRepository{
 
     save(data:ProdutosCreate):Promise<ProdutosCreate|undefined>
     findById(id:string):Promise<ProdutosCreate | null>;
+    findAll():Promise<ProdutosCreate[]>;
+    delete(id:string):Promise<null>;
+    update(id:string,data:ProdutosCreate):Promise<ProdutosCreate|undefined>
 }

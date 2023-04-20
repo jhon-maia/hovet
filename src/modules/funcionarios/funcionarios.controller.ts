@@ -15,5 +15,26 @@ export class FuncionarioController{
         return response.json(result);
      }
 
+     async delete(request:Request,response:Response){
+      const FuncionarioRepository= new FuncionarioPrismaRepository();
+      const FuncionarioService= new CreateFuncionarioService(FuncionarioRepository);
+
+      const result=FuncionarioService.executeDelete(request.params.id)
+      return response.json(result)
+
+  }
+
+  async update(request:Request,response:Response){
+      const{body}=request;
+      const FuncionarioRepository= new FuncionarioPrismaRepository();
+      const FuncionarioService= new CreateFuncionarioService(FuncionarioRepository);
+
+      const result= await FuncionarioService.executeUpdate(request.params.id,body);
+      console.log(result);
+
+      return response.json(result);
+
+  }
+
 
 }

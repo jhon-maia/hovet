@@ -13,4 +13,24 @@ export class CategoriaController{
         
         return response.json(result)
     }
+    async delete(request:Request,response:Response){
+        const ProdutoRepository= new CategoriaPrismaRepository();
+        const Categoriaervice= new CreateCategoriaService(ProdutoRepository);
+
+        const result=Categoriaervice.executeDelete(request.params.id)
+        return response.json(result)
+
+    }
+
+    async update(request:Request,response:Response){
+        const{body}=request;
+        const ProdutoRepository= new CategoriaPrismaRepository();
+        const Categoriaervice= new CreateCategoriaService(ProdutoRepository);
+
+        const result= await Categoriaervice.executeUpdate(request.params.id,body);
+        console.log(result);
+
+        return response.json(result);
+
+    }
 }

@@ -16,4 +16,16 @@ export class SolicitanteController{
         console.log(result)
         return response.json(result)
     }
+
+    async update(request:Request,response:Response){
+        const{body}=request;
+        const SolicitanteRepository= new SolicitantePrismaRepository();
+        const SolicitanteService= new SolicitanteCreateService(SolicitanteRepository);
+
+        const result= await SolicitanteService.executeUpdate(request.params.id,body);
+        console.log(result);
+
+        return response.json(result);
+
+    }
 }

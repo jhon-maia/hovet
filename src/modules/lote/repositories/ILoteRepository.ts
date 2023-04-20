@@ -10,4 +10,7 @@ export  type LoteCreate={
 export interface ILoteRepository{
     save(data:LoteCreate):Promise<LoteCreate|undefined>
     findById(id:String):Promise<LoteCreate|undefined>
-}
+   findAll():Promise<LoteCreate[]>;
+    delete(id:string):Promise<null>;
+    update(id:string,data:LoteCreate):Promise<LoteCreate|undefined>
+} 

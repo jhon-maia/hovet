@@ -19,4 +19,25 @@ export class ProdutoController{
        
               
     }
+
+    async delete(request:Request,response:Response){
+        const ProdutoRepository= new ProdutosPrismaRepository();
+        const ProdutoService= new ProdutosCreateService(ProdutoRepository);
+
+        const result=ProdutoService.executeDelete(request.params.id)
+        return response.json(result)
+
+    }
+
+    async update(request:Request,response:Response){
+        const{body}=request;
+        const ProdutoRepository= new ProdutosPrismaRepository();
+        const ProdutoService= new ProdutosCreateService(ProdutoRepository);
+
+        const result= await ProdutoService.executeUpdate(request.params.id,body);
+        console.log(result);
+
+        return response.json(result);
+
+    }
 }

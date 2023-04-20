@@ -18,4 +18,28 @@ export class LoteCreateService{
         return loteCreated;
 
     }
+
+
+    async executeDelete(id:string){
+        const produtoDeletado=await this.loteRepository.delete(id)
+        return produtoDeletado
+    
+       }
+    
+       async executeFindAll(){
+         const todoslote=await this.loteRepository.findAll()
+         return todoslote 
+       }
+    
+       async executeUpdate(id:string, data:LoteCreate){
+        const lote= await this.loteRepository.findById(data.id)
+    
+        if(data.id===lote?.id){
+            const produtoUpdate=await this.loteRepository.update(id,data)
+            return produtoUpdate
+    
+        }
+    
+    
+       }
 }
